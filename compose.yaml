@@ -1,0 +1,67 @@
+name: app-nasrulloh
+services:
+  db:
+    container_name: app-postgres-nasrulloh
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dot
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  redis:
+    container_name: app-redis-nasrulloh
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+  node:
+    # platform: linux/arm64/v8 #this line is optional if you are using Mac Silicon chip (M1/M2/M3)
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: app-nasrulloh
+    container_name: app-nasrulloh
+    ports:
+    - "3000:3000"
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - /var/www/node_modules
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=postgresql://postgres:postgres@app-postgres-nasrulloh:5432/dot?schema=public
+      - GOOGLE_CLIENT_ID=198494082980-krufdvbh492ru3p76luq20726pcqmkvn.apps.googleusercontent.com
+      - GOOGLE_CLIENT_SECRET=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
+      - REDIS_HOST=app-redis-nasrulloh
+
+  nginx:
+    image: nginx:alpine
+    container_name: app-nginx-nasrulloh
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - node
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+    driver: local
+networks:
+  app-network:
+    driver: bridge
