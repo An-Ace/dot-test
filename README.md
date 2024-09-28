@@ -2,8 +2,11 @@
 ## Test From DOT-INDONESIA
 ### Description
 **This application is a test of DOT-INDONESIA.**
+### [LIVE SERVER](http://www.ditopupin.com)
 ### Use Stack
 - **Nest JS as Backend Framework API**
+- **Typescript as Backend Language**
+- **PASSPORT as Middleware (USE 0AUTH LOGIN GOOGLE & CREDENTIALS)**
 - **Vue JS as Frontend Framework**
 - **Postgres as DBMS**
 - **Tailwind as CSS Utility**
