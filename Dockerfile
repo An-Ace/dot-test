@@ -13,10 +13,11 @@ RUN npm install
 # Copy project files into the docker image
 COPY . .
 RUN npx prisma generate
-RUN npm run build
+# RUN npm run build
 
 # Expose the port Vite runs on
 EXPOSE 3000
 
 # Start the Vite server
-CMD ["npm", "run", "start:prod"]
+# CMD ["npm", "run", "start:prod"]
+CMD ["npm", "start"]
