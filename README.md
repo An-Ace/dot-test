@@ -1,8 +1,7 @@
 # CRUD POSTS JSON
-## Test From DOT-INDONESIA
+## Test From VOCAGAME-INDONESIA
 ### Description
-**This application is a test of DOT-INDONESIA.**
-### [LIVE SERVER](http://www.ditopupin.com)
+**This application is a test of VOCAGAME-INDONESIA.**
 ### Use Stack
 - **Nest JS as Backend Framework API**
 - **Typescript as Backend Language**
